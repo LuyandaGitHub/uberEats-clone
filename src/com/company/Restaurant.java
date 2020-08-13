@@ -1,5 +1,11 @@
 package com.company;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Restaurant {
     private String name;
     private String location;
@@ -23,7 +29,9 @@ public class Restaurant {
         this.location = location;
     }
 
-//  WE USE SETTERS TO SET OR UPDATE INSTANCE VARIABLES
+    public Restaurant() { }
+
+    //  WE USE SETTERS TO SET OR UPDATE INSTANCE VARIABLES
     public void setCost1(int cost1) {
         this.cost1 = cost1;
     }
@@ -58,7 +66,6 @@ public class Restaurant {
 
 
 //    WE USE GETTERS TO READ THE VALUES OF VARIABLES
-
     public int getCost1() {
         return cost1;
     }
@@ -104,5 +111,46 @@ public class Restaurant {
                 ", cost3=" + cost3 +
                 '}';
     }
+
+    public void placeOrder(ArrayList<Order> orders) {
+        String filepath = "C:\\Users\\UWC Samsung 18\\Desktop\\Zaio\\Java\\Webinar Sessions\\UberEatsClone\\bin\\orders.csv";
+
+        try {
+//            MAKE A NEW INSTANCE OF THE FileWriter SO WE CAN WRITE TO FILES
+//            true MEANS THAT WE WILL APPEND DATA TO THE FILE INSTEAD OF DELETING WHATS ON THEN REWRITING
+            FileWriter fileWriter = new FileWriter(filepath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+//            THIS LETS US USE FUNCTIONS LIKE println....
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+
+//            LOOP THROUGH THE orders AND SAVE EACH order
+            Iterator iterator = orders.iterator();
+            while (iterator.hasNext()) {
+                Order currentOrder = (Order) iterator.next();
+                printWriter.println(currentOrder.getRestaurant() + ", "+ currentOrder.getOrder() + ", " + currentOrder.getCost() + ", " + currentOrder.getLocation());
+            }
+
+//            MAKES SURE THAT ALL THE DATA IS ADDED TO THE FILE
+            printWriter.flush();
+
+//            CLOSES THE FILE STREAM
+            printWriter.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        int priceOfOrders = 0;
+        Iterator iterator = orders.iterator();
+        while (iterator.hasNext()) {
+            Order currentOrder = (Order) iterator.next();
+            priceOfOrders = priceOfOrders + currentOrder.getCost();
+        }
+
+        System.out.println("Cost of order: R" + priceOfOrders);
+
+        System.out.println("com.company.UberEatsRestaurantApp.Order has been placed! Thank you for your time. Restaurant will process your order soon.\n");
+    }
+
 }
 

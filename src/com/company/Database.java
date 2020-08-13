@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Database {
-    private String restaurantsFilepath = "C:\\Users\\UWC Samsung 18\\Desktop\\Zaio\\Java\\Webinar Sessions\\UberEatsClone\\bin\\resturants.csv";
     private String ordersFilepath = "C:\\Users\\UWC Samsung 18\\Desktop\\Zaio\\Java\\Webinar Sessions\\UberEatsClone\\bin\\orders.csv";
 
     private Order[] orders;
@@ -45,15 +44,17 @@ public class Database {
         return amountOfLines;
     }
 
-    public Restaurant[] getAllRestaurants(String filepath) {
+    public Restaurant[] getAllRestaurants() {
+        String restaurantsFilepath = "C:\\Users\\UWC Samsung 18\\Desktop\\Zaio\\Java\\Webinar Sessions\\UberEatsClone\\bin\\resturants.csv";
+
         try {
 //        CREATE A BufferedReader THAT WE WILL USE TO READ THE cvc FILE
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filepath));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(restaurantsFilepath));
 
             String fileLine = null;
             int i = 0;
 
-            this.restaurants = new Restaurant[countLinesInFile(filepath) - 1];
+            this.restaurants = new Restaurant[countLinesInFile(restaurantsFilepath) - 1];
 
             while ((fileLine = bufferedReader.readLine()) != null) {
 //                SINCE THE FIRST LINE IS THE HEADING..WE HAVE TO SKIP IT
@@ -103,13 +104,13 @@ public class Database {
         for (int i = 0; i < this.restaurants.length; i++) {
 
 //            PUT EACH DRIVER IN THE APPROPRIATE CATEGORY
-            if(this.restaurants[i].getLocation().toLowerCase() == "rondebosch") {
+            if(this.restaurants[i].getLocation().toLowerCase().equals("rondebosch")) {
                 rondeboschRestaurants[rondebschCounter] = restaurants[i];
                 rondebschCounter++;
-            } else if (this.restaurants[i].getLocation().toLowerCase() == "kennilworth") {
+            } else if (this.restaurants[i].getLocation().toLowerCase().equals("kennilworth")) {
                 kennilworthRestaurants[kennilworthCounter] = restaurants[i];
                 kennilworthCounter++;
-            } else if (this.restaurants[i].getLocation().toLowerCase() == "seapoint") {
+            } else if (this.restaurants[i].getLocation().toLowerCase().equals("seapoint")) {
                 seapointRestaurants[seapointCounter] = restaurants[i];
                 seapointCounter++;
             }

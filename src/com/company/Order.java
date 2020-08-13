@@ -1,14 +1,16 @@
 package com.company;
 
 public class Order {
-    private String order;
-    private String location;
-    private String restaurant;
-
     private int cost;
 
+    private String order;
+    private String location;
+
+    private Restaurant restaurant;
+
+
 //    CONSTRUCTOR METHOD GETS CALLED AS SOON AS THE Order OBJECT IS INSTANTIATED...SO WE USE IT TO SET OUR INSTANCE VARIABLES
-    public Order(String order, String location, String restaurant, int cost) {
+    public Order(String order, String location, Restaurant restaurant, int cost) {
         this.order = order;
         this.location = location;
         this.restaurant = restaurant;
@@ -28,7 +30,7 @@ public class Order {
         this.order = order;
     }
 
-    public void setRestaurant(String restaurant) {
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
@@ -46,7 +48,7 @@ public class Order {
         return order;
     }
 
-    public String getRestaurant() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
@@ -59,4 +61,5 @@ public class Order {
                 ", cost=" + cost +
                 '}';
     }
+
 }
