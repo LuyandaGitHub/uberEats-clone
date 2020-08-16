@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -14,10 +15,6 @@ public class Main {
         Database db = new Database();
 
         Restaurant[] allRestaurants = db.getAllRestaurants();
-
-//        for (int i = 0; i < restaurants.length; i++) {
-//            System.out.println(restaurants[i]);
-//        }
 
         System.out.println("Welcome to Uber Eats - Signature Dish Edition \n");
         System.out.println("Select a location to load a restaurant from. Options are Rondebosch, Seapoint, Kenilworth or all.");
@@ -50,6 +47,7 @@ public class Main {
 
         ArrayList<Order> orders = new ArrayList<Order>();
 
+
         while(readyToSaveOrder == false) {
             System.out.println("Type 'a dish number' to add, and dish number is index + 1 from the array list that is being printed out ");
             int dishNumber = scanner.nextInt();
@@ -76,22 +74,36 @@ public class Main {
             Order order = new Order(dish, chosenRestaurant.getLocation(), chosenRestaurant, dishCost);
             orders.add(order);
 
-//            ON EACH ITERATION, SHOW THE CART
+//            EVERYTIME A NEW ITEM GETS ADDED, SHOW THE CART
             int i = 1;
             Iterator iterator = orders.iterator();
-            while(iterator.hasNext()) {
-                Order currentOrder = (Order) iterator.next();
-                System.out.println(i + ". " + currentOrder.getOrder());
-                i++;
+            if(iterator.hasNext()) {
+                System.out.println("Here is your cart.");
+
+                while(iterator.hasNext()) {
+                    Order currentOrder = (Order) iterator.next();
+                    System.out.println(i + ". " + currentOrder.getOrder());
+                    i++;
+                }
             }
 
-//        WHEN 'Y' IS PRESSED, ORDERS GET ADDED TO CSV FILE
-            System.out.println("Please confirm your order by typing 'y' for yes");
-            String userInput = scanner.nextLine();
+//        WHEN 'D' IS PRESSED, THAT PARTICULAR ORDER MUST BE DELETED
+            System.out.println("Type 'd-index' to delete an order, type 'n' to continue");
+            String next = scanner.next();
 
-            if(userInput.equals(String.valueOf('y'))) {
-                readyToSaveOrder = true;
+//            ONLY DELETE AN order IF THE FIRST LETTER IN next IS 'D'
+            if(String.valueOf(next.charAt(0)).equals('d')) { orders = restaurantClass.deleteOrder(orders, next); }
+
+            System.out.println(orders.size());
+//            ONLY ASK TO CHECKOUT IF THERE ARE ORDERS
+            if(orders.size() >= 1) {
+//                WHEN 'Y' IS PRESSED, ORDERS GET ADDED TO CSV FILE
+                System.out.println("Please confirm your order by typing 'y' for yes and 'n' for no...");
+                String userInput = scanner.next();
+
+                if(userInput.equals(String.valueOf('y'))) { readyToSaveOrder = true; }
             }
+
         }
 
 //         PLACE THE ORDER AND WRITE TO CSV FILE

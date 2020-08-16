@@ -123,9 +123,6 @@ public class Database {
         return kennilworthRestaurants;
     }
 
-
-
-
     public Restaurant[] getRestaurants() {
         return restaurants;
     }

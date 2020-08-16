@@ -102,13 +102,13 @@ public class Restaurant {
     public String toString() {
         return "Restaurant{" +
                 "name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", signatureDish1='" + signatureDish1 + '\'' +
-                ", signatureDish2='" + signatureDish2 + '\'' +
-                ", signatureDish3='" + signatureDish3 + '\'' +
-                ", cost1=" + cost1 +
-                ", cost2=" + cost2 +
-                ", cost3=" + cost3 +
+                "; location='" + location + '\'' +
+                "; signatureDish1='" + signatureDish1 + '\'' +
+                "; signatureDish2='" + signatureDish2 + '\'' +
+                "; signatureDish3='" + signatureDish3 + '\'' +
+                "; cost1=" + cost1 +
+                "; cost2=" + cost2 +
+                "; cost3=" + cost3 +
                 '}';
     }
 
@@ -152,5 +152,25 @@ public class Restaurant {
         System.out.println("com.company.UberEatsRestaurantApp.Order has been placed! Thank you for your time. Restaurant will process your order soon.\n");
     }
 
+    public ArrayList<Order> deleteOrder(ArrayList<Order> orders, String itemIndex) {
+        int i = 0;
+
+        for (int j = 0; j <= orders.size(); j++) {
+            if(j == Integer.parseInt(String.valueOf(itemIndex.charAt(2)))) {
+                orders.remove(j - 1);
+            }
+        }
+
+        if (orders.size() > 0) {
+            Iterator newIterator = orders.iterator();
+            while(newIterator.hasNext()) {
+                Order currentOrder = (Order) newIterator.next();
+                System.out.println(i + ". " + currentOrder.getOrder());
+                i++;
+            }
+        } else { System.out.println("Cart is empty"); }
+
+        return  orders;
+    }
 }
 
